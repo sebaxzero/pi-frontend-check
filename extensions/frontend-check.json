@@ -1,0 +1,12 @@
+{
+  "HEADLESS": true,
+  "VIEWPORT_WIDTH": 1280,
+  "VIEWPORT_HEIGHT": 900,
+  "NAV_TIMEOUT_MS": 30000,
+  "AUTO_SHOT": true,
+  "FULL_PAGE": false,
+  "SHOT_FORMAT": "jpeg",
+  "SHOT_QUALITY": 80,
+  "MAX_CONSOLE": 200,
+  "MAX_EVAL_CHARS": 4000
+}
