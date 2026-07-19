@@ -1,6 +1,5 @@
 # pi-frontend-check
 
-[![test](https://github.com/sebaxzero/pi-frontend-check/actions/workflows/test.yml/badge.svg)](https://github.com/sebaxzero/pi-frontend-check/actions/workflows/test.yml)
 [![npm](https://img.shields.io/npm/v/pi-frontend-check)](https://www.npmjs.com/package/pi-frontend-check)
 
 A [pi](https://pi.dev) extension that lets the model **review and test JS frontends headlessly, with screenshots it can actually see**: `frontend_open`, `frontend_act`, `frontend_screenshot`, `frontend_console`, and `frontend_eval` drive a Playwright Chromium against your dev server, static build, or a plain HTML file.
@@ -44,12 +43,21 @@ This is a **testing tool for your own frontend**, not a web browser:
 - **No SSRF protection, no sanitization** — `localhost`, private addresses, and `file://` are the whole point. For browsing the open web with prompt-injection and SSRF defenses, use [pi-browser-search](https://github.com/sebaxzero/pi-browser-search) or [pi-safe-search](https://github.com/sebaxzero/pi-safe-search).
 - **No dev-server management** — the agent starts your dev server itself (bash, background) and then points `frontend_open` at it.
 
+## Commands
+
+```
+/frontend-check                 — show current status and config
+/frontend-check set KEY=VAL     — override config for the current session only
+/frontend-check save            — write the current config to frontend-check.json
+/frontend-check reset           — close the browser
+```
+
 ## Configuration
 
-`/frontend-check` shows status, `/frontend-check set KEY=VAL` changes settings for the session, `/frontend-check save` writes them to the config file, `/frontend-check reset` closes the browser. Persistent config lives in `extensions/frontend-check.json`:
+Persistent configuration lives in `extensions/frontend-check.json` next to the installed extension (auto-created on first load with defaults). You can ask the agent to edit it, or tune values live with `/frontend-check set`.
 
-| Key | Default | Meaning |
-|-----|---------|---------|
+| Key | Default | Description |
+|-----|---------|-------------|
 | `HEADLESS` | `true` | Set `false` to watch the browser during a session |
 | `VIEWPORT_WIDTH` / `VIEWPORT_HEIGHT` | `1280` / `900` | Initial viewport |
 | `NAV_TIMEOUT_MS` | `30000` | Navigation timeout |
@@ -59,13 +67,9 @@ This is a **testing tool for your own frontend**, not a web browser:
 | `MAX_CONSOLE` | `200` | Console log ring-buffer size |
 | `MAX_EVAL_CHARS` | `4000` | Truncation limit for `frontend_eval` results |
 
-## Tests
+## Dependencies
 
-```bash
-node --test test.mjs
-```
-
-Pure logic (URL normalization, log formatting) lives in `extensions/report.ts` with no Playwright import, so tests run without a browser.
+`playwright` (^1.53.0) — installed automatically with the package, whether via `pi install npm:` or a git-based install. The Chromium binary is downloaded separately on first browser launch (see Install above).
 
 ## License
 
