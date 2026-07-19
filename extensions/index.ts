@@ -225,9 +225,19 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand("frontend-check", {
-    description: "Show status; /frontend-check set KEY=VAL [...]; /frontend-check reset",
+    description: "Show status; /frontend-check set KEY=VAL [...]; /frontend-check save; /frontend-check reset",
     handler: async (args, ctx) => {
       const trimmed = args?.trim() ?? "";
+
+      if (trimmed === "save") {
+        try {
+          writeFileSync(CONFIG_PATH, JSON.stringify(cfg, null, 2) + "\n", "utf-8");
+          ctx.ui.notify(`Frontend Check: saved ${CONFIG_PATH}`, "info");
+        } catch (e) {
+          ctx.ui.notify(`Frontend Check: could not save: ${e}`, "error");
+        }
+        return;
+      }
 
       if (trimmed === "reset") {
         await closeBrowser();
@@ -266,7 +276,7 @@ export default function (pi: ExtensionAPI) {
           }
         }
         if (needsRestart) await closeBrowser(); // relaunch picks up launch/context options
-        ctx.ui.notify(`Frontend Check: ${results.join(", ")}`, "info");
+        ctx.ui.notify(`Frontend Check: ${results.join(", ")} (session only; /frontend-check save to persist)`, "info");
         return;
       }
 
@@ -277,7 +287,7 @@ export default function (pi: ExtensionAPI) {
           `  current page: ${currentUrl() || "(none)"}`,
           `  console entries: ${getLog().length}`,
           "",
-          "  config (/set = session only; edit frontend-check.json for persistence):",
+          "  config (/set = session only; /frontend-check save to persist):",
           ...Object.entries(cfg).map(([k, v]) => `    ${k}=${v}`),
           "",
           "  /frontend-check reset — close the browser",

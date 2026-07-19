@@ -46,7 +46,7 @@ This is a **testing tool for your own frontend**, not a web browser:
 
 ## Configuration
 
-`/frontend-check` shows status, `/frontend-check set KEY=VAL` changes settings for the session, `/frontend-check reset` closes the browser. Persistent config lives in `extensions/frontend-check.json`:
+`/frontend-check` shows status, `/frontend-check set KEY=VAL` changes settings for the session, `/frontend-check save` writes them to the config file, `/frontend-check reset` closes the browser. Persistent config lives in `extensions/frontend-check.json`:
 
 | Key | Default | Meaning |
 |-----|---------|---------|
