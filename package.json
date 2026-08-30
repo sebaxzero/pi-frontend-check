@@ -1,7 +1,7 @@
 {
   "name": "pi-frontend-check",
-  "version": "1.1.0",
-  "description": "Pi extension: review and test JS frontends headlessly — open dev-server pages in Playwright Chromium, interact with them, capture screenshots the model can see, and collect console/network errors.",
+  "version": "1.2.0",
+  "description": "Pi extension: review and test JS frontends headlessly \u2014 open dev-server pages in Playwright Chromium/Firefox/WebKit, interact with them, capture screenshots the model can see, collect console/network errors, and reuse auth sessions or Zen Browser profiles.",
   "keywords": [
     "pi-package",
     "pi",
